@@ -1,0 +1,41 @@
+{
+  "compilerOptions": {
+    "target": "es6",
+    "module": "CommonJS",
+    "allowJs": true,
+    "typeRoots": ["node_modules/@types", "src/@types"],
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "baseUrl": ".",
+    "sourceMap": true,
+    "outDir": "./dist",
+    "strict": true,
+    "removeComments": true,
+    "lib": ["esnext", "dom"],
+    "declaration": true,
+    "strictPropertyInitialization": false,
+    "rootDir": "./src",
+    "incremental": false,
+    "noEmit": false,
+    "esModuleInterop": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "paths": {
+      "@src/*": ["./src/*"],
+      "@config/*": ["./src/config/*"],
+      "@controllers/*": ["./src/controllers/*"],
+      "@helper/*": ["./src/helper/*"],
+      "@libs/*": ["./src/libs/*"],
+      "@models/*": ["./src/models/*"],
+      "@plugins/*": ["./src/plugins/*"],
+      "@routes/*": ["./src/routes/*"],
+      "@services/*": ["./src/services/*"],
+      "@shared/*": ["./src/shared/*"],
+      "@utils/*": ["./src/utils/*"]
+    }
+  },
+  "include": ["./src/", "./node_modules/@types"],
+  "exclude": ["node_modules", "dist", "test"]
+}

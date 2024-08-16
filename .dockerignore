@@ -1,0 +1,13 @@
+.husky
+/docker
+dist
+test
+.vscode
+.github
+/node_modules
+tsconfig.tsbuildinfo
+docker-compose.yml
+.dockerignore
+.drone.yml
+.prettierc
+*.md

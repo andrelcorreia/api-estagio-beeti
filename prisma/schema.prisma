@@ -1,0 +1,80 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model users {
+  id         String   @id @unique @db.VarChar(40)
+  email      Bytes
+  name       Bytes
+  password   String   @db.VarChar(255)
+  created_at DateTime @default(now()) @db.Timestamp()
+  active     Boolean  @default(true) @db.Boolean
+}
+
+model products {
+  id          String   @id @unique @db.VarChar(40)
+  name        String   @db.VarChar(255)
+  description String   @db.VarChar(255)
+  active      Boolean  @default(true) @db.Boolean
+  created_at  DateTime @default(now()) @db.Timestamp()
+}
+
+model clients {
+  id           String   @id @unique @db.VarChar(40)
+  name         Bytes
+  document     Bytes
+  full_address Bytes
+  telephone    Bytes
+  active       Boolean  @default(true) @db.Boolean
+  created_at   DateTime @default(now()) @db.Timestamp()
+}
+
+model access_level {
+  id          String @id @unique @db.VarChar(40)
+  description String @db.VarChar(255)
+}
+
+model type_occurrence {
+  id          String   @id @unique @db.VarChar(40)
+  description String   @db.VarChar(255)
+  created_at  DateTime @default(now()) @db.Timestamp()
+}
+
+model maintenance {
+  id              String   @id @unique @db.VarChar(40)
+  description     String   @db.VarChar(255)
+  created_at      DateTime @default(now()) @db.Timestamp()
+  technical_visit Boolean  @default(true) @db.Boolean
+  estimated_date  DateTime @db.Timestamp()
+}
+
+model services_rendered {
+  id              String   @id @unique @db.VarChar(40)
+  description     String   @db.VarChar(255)
+  created_at      DateTime @default(now()) @db.Timestamp()
+  technical_visit Boolean  @default(true) @db.Boolean
+  estimated_date  DateTime @db.Timestamp()
+}
+
+model api_main_logs {
+  id             String   @id @unique @db.VarChar(40)
+  user_id        String?  @db.VarChar(40)
+  created_at     DateTime @default(now()) @db.Timestamp()
+  body           String?  @db.Text
+  status         Int      @db.Integer
+  return_message String   @db.Text
+  route          String   @db.Text
+  return_data    String?  @db.Text
+  method         String   @db.VarChar(8)
+}

@@ -1,0 +1,12 @@
+version: "3.7"
+
+services:
+  database:
+    image: postgres
+    container_name: beeti
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_USER=beeti-dev
+      - POSTGRES_PASSWORD=cMY46v4nN7hn4MqOE6nZ
+      - POSTGRES_DB=beeti-dev
