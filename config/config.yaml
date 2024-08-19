@@ -13,6 +13,11 @@ jwt:
   JWT_EXPIRED_IN: "1d"
   API_JWT_ISSUER: beeti
 
+nodemailer_config:
+  USER_EMAIL_PROVIDER: "noreplyprojectsoficial@gmail.com"
+  USER_EMAIL_PASSWORD: "zyjl kizw tira jtlz"
+  API_FORGOT_PASSWORD_URL: "https://www.youtube.com/"
+
 ######################################################################
 ## Configurações YENV ref: https://www.npmjs.com/package/yenv
 ######################################################################
@@ -20,14 +25,14 @@ jwt:
 # Development config uses base config
 development:
   # We can compose more than one at a time.
-  ~compose: [app, db, jwt]
+  ~compose: [app, db, jwt, nodemailer_config]
   # Declare additional settings..
   DEV_MODE: true
 
 # Development config uses base config
 test:
   # We can compose more than one at a time.
-  ~compose: [app, db, jwt]
+  ~compose: [app, db, jwt, nodemailer_config]
   # Declare additional settings..
   DEV_MODE: true
 
