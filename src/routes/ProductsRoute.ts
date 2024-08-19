@@ -1,16 +1,16 @@
 import env from "@config/config";
 import {
-  createUsersController,
-  listAllUsersController,
-  listUsersByIdController,
-  updateUsersController,
-} from "@src/controllers/users";
+  createProductsController,
+  findAllProductsController,
+  findProductsByIdController,
+  updateProductsController,
+} from "@src/controllers/products";
 import { mainLog } from "@src/plugins/mainLog";
 
 import { FastifyInstance, FastifyPluginOptions } from "fastify";
 
-class UserRoutes {
-  public prefixRoute = "/users";
+class ProductsRoute {
+  public prefixRoute = "/products";
   public version = env.API_VERSION;
 
   routes = (
@@ -18,28 +18,34 @@ class UserRoutes {
     options: FastifyPluginOptions,
     done: any
   ) => {
-    fastify.post(`/`, createUsersController.handle);
+    fastify.post(
+      `/`,
+      { preValidation: [fastify.authenticate] },
+      createProductsController.handle
+    );
 
     fastify.get(
       `/`,
       { preValidation: [fastify.authenticate] },
-      listAllUsersController.handle
+      findAllProductsController.handle
     );
 
     fastify.get(
       `/:id`,
       { preValidation: [fastify.authenticate] },
-      listUsersByIdController.handle
+      findProductsByIdController.handle
     );
 
     fastify.put(
       `/:id`,
       { preValidation: [fastify.authenticate] },
-      updateUsersController.handle
+      updateProductsController.handle
     );
+
+    mainLog(fastify, done);
 
     done();
   };
 }
 
-export default UserRoutes;
+export default ProductsRoute;

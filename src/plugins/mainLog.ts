@@ -1,3 +1,4 @@
+import { AppError } from "@src/helper/errosHandler";
 import { ApiMainLogModel } from "@src/models/MainLogModel";
 import { DoneFuncWithErrOrRes, FastifyInstance } from "fastify";
 import { v4 as uuidV4 } from "uuid";
@@ -16,6 +17,14 @@ export async function mainLog(
       const { query } = request;
       const path = request.url;
 
+      if (!user) {
+        throw new AppError({
+          statusCode: 404,
+          message: "Usuário não autenticado!",
+          result: "error",
+        });
+      }
+
       if (!Buffer.isBuffer(payload)) {
         const { statusCode, message, data } = payload
           ? JSON.parse(payload as string)
@@ -23,7 +32,7 @@ export async function mainLog(
 
         const mainLog = {
           id: uuidV4(),
-          user_id: user ? user : null,
+          user_id: user,
           body:
             method === "GET"
               ? JSON.stringify(query)

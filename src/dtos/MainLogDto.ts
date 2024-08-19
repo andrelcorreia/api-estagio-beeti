@@ -1,6 +1,6 @@
 export interface ApiMainLogDto {
   id: string;
-  user_id: string | null;
+  user_id: string;
   created_at: Date;
   body: string | null;
   status: number;

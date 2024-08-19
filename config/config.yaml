@@ -5,13 +5,13 @@ app:
   API_VERSION: "/v1"
 
 db:
-  DATABASE_URL: "postgresql://webstock-dev:9nNmRhrbT8spru3zQsG1MuWT3@localhost:5432/webstock-dev?schema=public"
+  DATABASE_URL: "postgresql://beeti-dev:cMY46v4nN7hn4MqOE6nZ@localhost:5432/beeti-dev?schema=public"
   DATABASE_KEY: "123"
 
 jwt:
   JWT_SECRET: "privateroute"
   JWT_EXPIRED_IN: "1d"
-  API_JWT_ISSUER: webstock
+  API_JWT_ISSUER: beeti
 
 ######################################################################
 ## Configurações YENV ref: https://www.npmjs.com/package/yenv

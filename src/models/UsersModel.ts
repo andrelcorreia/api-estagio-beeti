@@ -20,7 +20,7 @@ export class UsersModel implements IUsersModel {
       id,
       email,
       name,
-      password,
+      password
     )
     VALUES
     (
@@ -33,7 +33,6 @@ export class UsersModel implements IUsersModel {
       id,
       PGP_SYM_DECRYPT(email, CAST(${env.DATABASE_KEY} AS varchar)) AS email,
       PGP_SYM_DECRYPT(name, CAST(${env.DATABASE_KEY} AS varchar)) AS name,
-      password,
       created_at,
       active
     `;

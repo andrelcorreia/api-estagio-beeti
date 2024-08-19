@@ -4,7 +4,7 @@ import { UsersModel } from "@src/models/UsersModel";
 
 export class UpdateUsersUseCase {
   async execute(
-    data: Omit<Users, "father" | "active" | "password" | "created_at">
+    data: Omit<Users, "active" | "password" | "created_at">
   ): Promise<Users> {
     const usersModel = new UsersModel();
 
@@ -43,8 +43,6 @@ export class UpdateUsersUseCase {
       id: data.id ? data.id : list.id,
       email: data.email ? data.email : list.email,
       name: data.name ? data.name : list.name,
-      app: data.app ? data.app : list.app,
-      web: data.web ? data.web : list.web,
     });
 
     return update;

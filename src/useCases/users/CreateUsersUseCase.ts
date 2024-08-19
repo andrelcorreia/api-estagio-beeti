@@ -49,12 +49,7 @@ export class CreateUsersUseCase {
       email: data.email,
       name: data.name,
       password: passwordHash,
-      app: data.app,
-      web: data.web,
-      father: data.father,
     });
-
-    console.log({ create });
 
     return create;
   }
