@@ -11,20 +11,18 @@ export class UpdateUsersController {
 
     const data = request.body as Omit<
       Users,
-      "father" | "active" | "password" | "created_at"
+      "active" | "password" | "created_at"
     >;
 
     const response = await updateUsersUseCase.execute({
       id,
       name: data.name,
       email: data.email,
-      app: data.app,
-      web: data.web,
     });
 
     return reply.send(
       new AppResponse({
-        statusCode: 201,
+        statusCode: 200,
         message: "Usuário atualizado com sucesso!",
         result: "success",
         data: response,

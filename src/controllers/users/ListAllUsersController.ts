@@ -11,7 +11,7 @@ export class ListAllUsersController {
 
     return reply.send(
       new AppResponse({
-        statusCode: 201,
+        statusCode: 200,
         message: "Usuários listados com sucesso!",
         result: "success",
         data: response,
