@@ -6,6 +6,7 @@ import {
   updateUsersController,
 } from "@src/controllers/users";
 import { mainLog } from "@src/plugins/mainLog";
+import { createUserSchema } from "@src/shared/schemas/ValidationSchema";
 
 import { FastifyInstance, FastifyPluginOptions } from "fastify";
 
@@ -18,11 +19,17 @@ class UserRoutes {
     options: FastifyPluginOptions,
     done: any
   ) => {
-    fastify.post(`/`, createUsersController.handle);
+    fastify.post(
+      `/`,
+      { schema: createUserSchema.schema },
+      createUsersController.handle
+    );
 
     fastify.get(
       `/`,
-      { preValidation: [fastify.authenticate] },
+      {
+        preValidation: [fastify.authenticate],
+      },
       listAllUsersController.handle
     );
 

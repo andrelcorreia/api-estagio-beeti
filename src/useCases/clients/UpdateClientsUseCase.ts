@@ -5,7 +5,7 @@ import { unMask } from "node-masker";
 
 export class UpdateClientsUseCase {
   async execute(
-    data: Omit<ClientsDto, "document" | "active" | "created_at">
+    data: Omit<ClientsDto, "document" | "created_at">
   ): Promise<ClientsDto> {
     const clientsModel = new ClientsModel();
 
@@ -37,6 +37,7 @@ export class UpdateClientsUseCase {
       name: data.name ? data.name : list.name,
       full_address: data.full_address ? data.full_address : list.full_address,
       telephone: data.telephone ? unMask(data.telephone) : list.telephone,
+      active: data.active ? data.active : list.active,
     });
 
     return update;

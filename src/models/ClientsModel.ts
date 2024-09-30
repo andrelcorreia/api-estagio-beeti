@@ -120,13 +120,14 @@ export class ClientsModel implements IClientsModel {
   }
 
   async update(
-    data: Omit<ClientsDto, "document" | "active" | "created_at">
+    data: Omit<ClientsDto, "document" | "created_at">
   ): Promise<ClientsDto> {
     const rows: ClientsDto[] = await prisma.$queryRaw`
     UPDATE clients SET
     name = PGP_SYM_ENCRYPT(${data.name}, CAST(${env.DATABASE_KEY} AS varchar)),
     full_address = PGP_SYM_ENCRYPT(${data.full_address}, CAST(${env.DATABASE_KEY} AS varchar)),
-    telephone = PGP_SYM_ENCRYPT(${data.telephone}, CAST(${env.DATABASE_KEY} AS varchar))
+    telephone = PGP_SYM_ENCRYPT(${data.telephone}, CAST(${env.DATABASE_KEY} AS varchar)),
+    active = ${data.active}::boolean
     WHERE id = ${data.id}::varchar
     RETURNING
     id,

@@ -46,8 +46,8 @@ export class CreateUsersUseCase {
 
     const create = await usersModel.create({
       id: uuidV4(),
-      email: data.email,
-      name: data.name,
+      email: data.email.trim(),
+      name: data.name.trim(),
       password: passwordHash,
     });
 

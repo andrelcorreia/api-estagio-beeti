@@ -22,7 +22,7 @@ export class UpdateUsersController {
 
     return reply.send(
       new AppResponse({
-        statusCode: 200,
+        statusCode: 201,
         message: "Usuário atualizado com sucesso!",
         result: "success",
         data: response,

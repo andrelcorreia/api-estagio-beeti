@@ -9,7 +9,7 @@ export class ListAllClientsUseCase {
       page ? Number(page) : 0,
       limit ? Number(limit) : 100
     );
-
+    console.log({ list });
     return list;
   }
 }

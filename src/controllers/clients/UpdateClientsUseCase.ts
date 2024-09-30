@@ -12,16 +12,14 @@ export class UpdateClientsController {
 
     const { id } = request.params as { id: string };
 
-    const data = request.body as Omit<
-      ClientsDto,
-      "document" | "active" | "created_at"
-    >;
+    const data = request.body as Omit<ClientsDto, "document" | "created_at">;
 
     const response = await updateClientsUseCase.execute({
       id,
       name: data.name,
       telephone: data.telephone,
       full_address: data.full_address,
+      active: data.active,
     });
 
     return reply.send(
