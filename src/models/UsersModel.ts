@@ -106,4 +106,8 @@ export class UsersModel implements IUsersModel {
 
     return rows[0];
   }
+
+  async count(): Promise<number> {
+    return prisma.users.count();
+  }
 }

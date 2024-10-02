@@ -7,6 +7,8 @@ export class ListAllUsersUseCase {
 
     const list = await usersModel.findAll();
 
-    return list;
+    const count = await usersModel.count();
+
+    return { list, total: count };
   }
 }
