@@ -38,11 +38,20 @@ export class ServicesProvidedModel implements IServicesProvidedModel {
   }
 
   async update(
-    props: Omit<ServicesProvided, "created_at">
+    props: Omit<ServicesProvided, "created_at" | "active">
   ): Promise<ServicesProvided> {
     return prisma.services_provided.update({
       where: { id: props.id },
       data: props,
+    });
+  }
+
+  async inactive(id: string): Promise<void> {
+    prisma.services_provided.update({
+      where: { id },
+      data: {
+        active: false,
+      },
     });
   }
 }

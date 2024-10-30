@@ -3,38 +3,41 @@ import { AppError } from "@src/helper/errosHandler";
 import { ClientsModel } from "@src/models/ClientsModel";
 import { ServicesProvidedModel } from "@src/models/ServicesProvidedModel";
 import { UsersModel } from "@src/models/UsersModel";
-import { v4 as uuidV4 } from "uuid";
 
-export class CreateServicesProvidedUseCase {
+export class UpdateServicesProvidedUseCase {
   async execute(
-    data: Omit<ServicesProvided, "id" | "created_at" | "active">
+    data: Omit<ServicesProvided, "created_at" | "active">
   ): Promise<ServicesProvided> {
     const servicesProvidedModel = new ServicesProvidedModel();
     const usersModel = new UsersModel();
     const clientsModel = new ClientsModel();
 
-    const user = await usersModel.findById(data.user_id);
+    if (data.user_id) {
+      const user = await usersModel.findById(data.user_id);
 
-    if (!user) {
-      throw new AppError({
-        statusCode: 404,
-        message: "Id do usuário não identificado!",
-        result: "error",
-      });
+      if (!user) {
+        throw new AppError({
+          statusCode: 404,
+          message: "Id do usuário não identificado!",
+          result: "error",
+        });
+      }
     }
 
-    const client = await clientsModel.findById(data.client_id);
+    if (data.client_id) {
+      const client = await clientsModel.findById(data.client_id);
 
-    if (!client) {
-      throw new AppError({
-        statusCode: 404,
-        message: "Id do cliente não identificado!",
-        result: "error",
-      });
+      if (!client) {
+        throw new AppError({
+          statusCode: 404,
+          message: "Id do cliente não identificado!",
+          result: "error",
+        });
+      }
     }
 
-    const create = await servicesProvidedModel.create({
-      id: uuidV4(),
+    const create = await servicesProvidedModel.update({
+      id: data.id,
       description: data.description,
       estimated_date: data.estimated_date,
       technical_date: data.technical_date,
