@@ -6,7 +6,7 @@ export class ListServicesProvidedByIdUseCase {
   async execute(id: string): Promise<ServicesProvided> {
     const servicesProvidedModel = new ServicesProvidedModel();
 
-    const list = await servicesProvidedModel.findById(id);
+    const list = await servicesProvidedModel.findManyCompleteById(id);
 
     if (!list) {
       throw new AppError({

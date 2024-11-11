@@ -10,9 +10,17 @@ export class ListAllServicesProvidedController {
   ): Promise<ServicesProvided> {
     const listAllServicesProvidedUseCase = new ListAllServicesProvidedUseCase();
 
-    const { page, limit } = request.query as { page: string; limit: string };
+    const { page, limit, description } = request.query as {
+      page: string;
+      limit: string;
+      description: string;
+    };
 
-    const response = await listAllServicesProvidedUseCase.execute(page, limit);
+    const response = await listAllServicesProvidedUseCase.execute(
+      page,
+      limit,
+      description
+    );
 
     return reply.send(
       new AppResponse({

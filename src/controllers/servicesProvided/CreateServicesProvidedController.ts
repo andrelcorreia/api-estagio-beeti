@@ -11,12 +11,20 @@ export class CreateServicesProvidedController {
   ): Promise<ServicesProvided> {
     const createServicesProvidedUseCase = new CreateServicesProvidedUseCase();
 
+    const { usrId } = request as { usrId: string };
+
     const data = request.body as Omit<
       ServicesProvided,
       "id" | "created_at" | "active"
     >;
 
-    const response = await createServicesProvidedUseCase.execute(data);
+    const response = await createServicesProvidedUseCase.execute({
+      client_id: data.client_id,
+      description: data.description,
+      estimated_date: data.estimated_date,
+      technical_date: data.technical_date,
+      user_id: usrId,
+    });
 
     return reply.send(
       new AppResponse({

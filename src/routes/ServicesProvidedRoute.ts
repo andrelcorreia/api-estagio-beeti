@@ -20,7 +20,7 @@ class ServicesProvidedRoutes {
   ) => {
     fastify.post(
       `/`,
-      // { schema: createUserSchema.schema },
+      { preValidation: [fastify.authenticate] },
       createServicesProvidedController.handle
     );
 

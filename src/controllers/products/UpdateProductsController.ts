@@ -17,8 +17,8 @@ export class UpdateProductsController {
 
     const response = await updateProductsUseCase.execute({
       id,
-      name: data.name,
-      description: data.description,
+      name: data.name.trim(),
+      description: data.description.trim(),
       active: data.active,
     });
 
