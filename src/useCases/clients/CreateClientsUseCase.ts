@@ -56,10 +56,10 @@ export class CreateClientsUseCase {
 
     const create = await clientsModel.create({
       id: uuidV4(),
-      name: data.name,
-      document: cpf,
-      telephone: unMask(data.telephone),
-      full_address: data.full_address,
+      name: data.name.trim(),
+      document: cpf.trim(),
+      telephone: unMask(data.telephone).trim(),
+      full_address: data.full_address.trim(),
     });
 
     return create;

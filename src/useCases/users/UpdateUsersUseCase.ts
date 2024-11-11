@@ -41,8 +41,8 @@ export class UpdateUsersUseCase {
 
     const update = await usersModel.update({
       id: data.id ? data.id : list.id,
-      email: data.email ? data.email : list.email,
-      name: data.name ? data.name : list.name,
+      email: data.email ? data.email.trim() : list.email,
+      name: data.name ? data.name.trim() : list.name,
     });
 
     return update;

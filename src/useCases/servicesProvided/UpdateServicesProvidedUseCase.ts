@@ -38,11 +38,11 @@ export class UpdateServicesProvidedUseCase {
 
     const create = await servicesProvidedModel.update({
       id: data.id,
-      description: data.description,
+      description: data.description.trim(),
       estimated_date: data.estimated_date,
       technical_date: data.technical_date,
-      user_id: data.user_id,
-      client_id: data.client_id,
+      user_id: data.user_id.trim(),
+      client_id: data.client_id.trim(),
     });
 
     return create;

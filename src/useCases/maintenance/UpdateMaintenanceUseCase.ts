@@ -54,12 +54,12 @@ export class UpdateMaintenanceUseCase {
 
     const create = await maintenanceModel.update({
       id: data.id,
-      description: data.description,
+      description: data.description.trim(),
       estimated_date: data.estimated_date,
       technical_date: data.technical_date,
-      user_id: data.user_id,
-      client_id: data.client_id,
-      product_id: data.product_id,
+      user_id: data.user_id.trim(),
+      client_id: data.client_id.trim(),
+      product_id: data.product_id.trim(),
       occ_id: null,
     });
 

@@ -34,9 +34,13 @@ export class UpdateClientsUseCase {
 
     const update = await clientsModel.update({
       id: data.id ? data.id : list.id,
-      name: data.name ? data.name : list.name,
-      full_address: data.full_address ? data.full_address : list.full_address,
-      telephone: data.telephone ? unMask(data.telephone) : list.telephone,
+      name: data.name ? data.name.trim() : list.name,
+      full_address: data.full_address
+        ? data.full_address.trim()
+        : list.full_address,
+      telephone: data.telephone
+        ? unMask(data.telephone).trim()
+        : list.telephone,
       active: data.active ? data.active : list.active,
     });
 

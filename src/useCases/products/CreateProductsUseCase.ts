@@ -10,8 +10,8 @@ export class CreateProductsUseCase {
 
     const create = await productsModel.create({
       id: uuidV4(),
-      description: data.description,
-      name: data.name,
+      description: data.description.trim(),
+      name: data.name.trim(),
     });
 
     return create;
