@@ -1,6 +1,6 @@
 import { Prisma } from "@prisma/client";
 import env from "@src/config/config";
-import { Maintenance } from "@src/dtos/MaintenanceDto";
+import { Maintenance, MaintenanceCompleteInfo } from "@src/dtos/MaintenanceDto";
 import { prisma } from "@src/libs/prisma";
 
 export interface IMaintenanceModel {
@@ -75,7 +75,7 @@ export class MaintenanceModel implements IMaintenanceModel {
     page: number,
     limit: number,
     description: string | undefined
-  ): Promise<any[]> {
+  ): Promise<MaintenanceCompleteInfo[]> {
     const rows = await prisma.$queryRaw<any[]>`SELECT 
         main.id, 
         main.description, 
