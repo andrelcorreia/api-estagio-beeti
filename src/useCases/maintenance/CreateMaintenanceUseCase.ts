@@ -14,7 +14,7 @@ export class CreateMaintenanceUseCase {
     const productsModel = new ProductsModel();
     const usersModel = new UsersModel();
     const clientsModel = new ClientsModel();
-
+    console.log({ data });
     const user = await usersModel.findById(data.user_id);
 
     if (!user) {

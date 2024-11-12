@@ -10,9 +10,17 @@ export class ListAllMaintenanceController {
   ): Promise<Maintenance> {
     const listAllMaintenanceUseCase = new ListAllMaintenanceUseCase();
 
-    const { page, limit } = request.query as { page: string; limit: string };
+    const { page, limit, description } = request.query as {
+      page: string;
+      limit: string;
+      description: string;
+    };
 
-    const response = await listAllMaintenanceUseCase.execute(page, limit);
+    const response = await listAllMaintenanceUseCase.execute(
+      page,
+      limit,
+      description
+    );
 
     return reply.send(
       new AppResponse({

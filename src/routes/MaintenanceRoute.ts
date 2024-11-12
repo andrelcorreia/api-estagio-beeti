@@ -21,6 +21,9 @@ class MaintenanceRoutes {
     fastify.post(
       `/`,
       // { schema: createUserSchema.schema },
+      {
+        preValidation: [fastify.authenticate],
+      },
       createMaintenanceController.handle
     );
 

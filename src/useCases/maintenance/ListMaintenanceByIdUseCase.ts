@@ -6,7 +6,7 @@ export class ListMaintenanceByIdUseCase {
   async execute(id: string): Promise<Maintenance> {
     const maintenanceModel = new MaintenanceModel();
 
-    const list = await maintenanceModel.findById(id);
+    const list = await maintenanceModel.findbyIdComplete(id);
 
     if (!list) {
       throw new AppError({
@@ -15,6 +15,8 @@ export class ListMaintenanceByIdUseCase {
         result: "error",
       });
     }
+
+    console.log({ list });
 
     return list;
   }
