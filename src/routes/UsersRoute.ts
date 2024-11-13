@@ -21,7 +21,7 @@ class UserRoutes {
   ) => {
     fastify.post(
       `/`,
-      { schema: createUserSchema.schema },
+      // { schema: createUserSchema.schema },
       createUsersController.handle
     );
 

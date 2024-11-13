@@ -54,6 +54,7 @@ export class CreateSessionsAppUseCase {
         email: findEmail.email,
         created_at: findEmail.created_at,
         active: findEmail.active,
+        access_level_id: findEmail.access_level_id,
       },
     };
 

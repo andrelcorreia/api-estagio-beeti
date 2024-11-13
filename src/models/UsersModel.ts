@@ -14,27 +14,31 @@ export interface IUsersModel {
 
 export class UsersModel implements IUsersModel {
   async create(data: Omit<Users, "created_at" | "active">): Promise<Users> {
+    console.log({ data });
     const rows: Users[] = await prisma.$queryRaw<Users[]>`
     INSERT INTO users 
     (
       id,
       email,
       name,
-      password
+      password,
+      access_level_id
     )
     VALUES
     (
       ${data.id}::uuid,
       PGP_SYM_ENCRYPT(${data.email}, CAST(${env.DATABASE_KEY} AS varchar)),
       PGP_SYM_ENCRYPT(${data.name}, CAST(${env.DATABASE_KEY} AS varchar)),
-      ${data.password}::varchar
+      ${data.password}::varchar,
+      ${data.access_level_id}
     )
     RETURNING
       id,
       PGP_SYM_DECRYPT(email, CAST(${env.DATABASE_KEY} AS varchar)) AS email,
       PGP_SYM_DECRYPT(name, CAST(${env.DATABASE_KEY} AS varchar)) AS name,
       created_at,
-      active
+      active,
+      access_level_id
     `;
 
     return rows[0];
@@ -48,7 +52,8 @@ export class UsersModel implements IUsersModel {
     PGP_SYM_DECRYPT(name, CAST(${env.DATABASE_KEY} AS varchar)) AS name,
     password,
     created_at,
-    active
+    active,
+    access_level_id
     FROM users
     WHERE id = ${id}::varchar`;
 
@@ -63,7 +68,8 @@ export class UsersModel implements IUsersModel {
     PGP_SYM_DECRYPT(name, CAST(${env.DATABASE_KEY} AS varchar)) AS name,
     password,
     created_at,
-    active
+    active,
+    access_level_id
     FROM users
     WHERE  
     PGP_SYM_DECRYPT(email, CAST(${env.DATABASE_KEY} AS varchar)) = CAST(${email} AS varchar)
@@ -80,7 +86,8 @@ export class UsersModel implements IUsersModel {
     PGP_SYM_DECRYPT(name, CAST(${env.DATABASE_KEY} AS varchar)) AS name,
     password,
     created_at,
-    active
+    active,
+    access_level_id
     FROM users
     `;
 
@@ -101,7 +108,8 @@ export class UsersModel implements IUsersModel {
     PGP_SYM_DECRYPT(name, CAST(${env.DATABASE_KEY} AS varchar)) AS name,
     password,
     created_at,
-    active
+    active,
+    access_level_id
     `;
 
     return rows[0];
@@ -118,7 +126,8 @@ export class UsersModel implements IUsersModel {
     PGP_SYM_DECRYPT(name, CAST(${env.DATABASE_KEY} AS varchar)) AS name,
     password,
     created_at,
-    active
+    active,
+    access_level_id
     `;
 
     return rows[0];

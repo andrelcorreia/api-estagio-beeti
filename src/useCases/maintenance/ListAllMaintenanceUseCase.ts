@@ -9,8 +9,7 @@ export class ListAllMaintenanceUseCase {
   async execute(
     page: string,
     limit: string,
-    description: string,
-    id: string
+    description: string
   ): Promise<MaintenanceCompleteInfo[]> {
     const maintenanceModel = new MaintenanceModel();
     const nodemailerProvider = new NodemailerProvider();
@@ -22,12 +21,14 @@ export class ListAllMaintenanceUseCase {
       description && description !== "" ? description : undefined
     );
 
-    const user = await usersModel.findById(id);
+    const user = await usersModel.findById(
+      "0de78204-cad0-4363-88f8-5993cd5d7d00"
+    );
 
     if (!user) {
       throw new AppError({
         code: 1,
-        statusCode: 401,
+        statusCode: 404,
         result: "error",
         message: "Usuário não encontrado",
       });

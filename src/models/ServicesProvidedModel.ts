@@ -1,7 +1,10 @@
 import { Prisma } from "@prisma/client";
 import env from "@src/config/config";
 import { ProductsDto } from "@src/dtos/ProductsDto";
-import { ServicesProvided } from "@src/dtos/ServicesProvidedDto";
+import {
+  ServicesProvided,
+  ServicesProvidedCompleteInfo,
+} from "@src/dtos/ServicesProvidedDto";
 import { prisma } from "@src/libs/prisma";
 
 export interface IServicesProvidedModel {
@@ -55,7 +58,7 @@ export class ServicesProvidedModel implements IServicesProvidedModel {
     page: number,
     limit: number,
     description?: string
-  ): Promise<any[]> {
+  ): Promise<ServicesProvidedCompleteInfo[]> {
     const rows = await prisma.$queryRaw<any[]>`SELECT 
         sp.id, 
         sp.description, 

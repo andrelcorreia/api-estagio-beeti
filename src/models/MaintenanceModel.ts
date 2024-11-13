@@ -45,21 +45,21 @@ export class MaintenanceModel implements IMaintenanceModel {
       INNER JOIN clients ON main.client_id = clients.id 
       INNER JOIN users ON main.user_id = users.id 
       WHERE main.active = true 
-      AND main.id = ${id}
+      AND main.id = ${id}::varchar
       `;
 
     // Mapeando para a interface correta
     return {
-      id: rows.id,
-      description: rows.description,
-      created_at: rows.created_at,
-      active: rows.active,
-      estimated_date: rows.estimated_date,
-      technical_date: rows.technical_date,
-      user_id: rows.user_id,
-      client_id: rows.client_id,
-      client: { name: rows.client_name },
-      user: { name: rows.user_name },
+      id: rows[0].id,
+      description: rows[0].description,
+      created_at: rows[0].created_at,
+      active: rows[0].active,
+      estimated_date: rows[0].estimated_date,
+      technical_date: rows[0].technical_date,
+      user_id: rows[0].user_id,
+      client_id: rows[0].client_id,
+      client: { name: rows[0].client_name },
+      user: { name: rows[0].user_name },
     };
   }
 
@@ -76,6 +76,7 @@ export class MaintenanceModel implements IMaintenanceModel {
     limit: number,
     description: string | undefined
   ): Promise<MaintenanceCompleteInfo[]> {
+    console.log({ page, limit, description });
     const rows = await prisma.$queryRaw<any[]>`SELECT 
         main.id, 
         main.description, 
@@ -97,7 +98,7 @@ export class MaintenanceModel implements IMaintenanceModel {
       WHERE main.active = true 
       ${
         description
-          ? Prisma.sql`AND main.description ILIKE '%' || ${description} || '%'`
+          ? Prisma.sql`AND main.description ILIKE '%' || ${description}::varchar || '%'`
           : Prisma.empty
       }
       ORDER BY main.created_at DESC 

@@ -8,7 +8,7 @@ export class ListAllServicesProvidedUseCase {
     description: string
   ): Promise<ServicesProvided[]> {
     const servicesProvidedModel = new ServicesProvidedModel();
-    console.log({ page, limit, description });
+
     const list = await servicesProvidedModel.findManyComplete(
       page ? Number(page) : 0,
       limit ? Number(limit) : 100,

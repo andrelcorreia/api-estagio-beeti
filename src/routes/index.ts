@@ -5,6 +5,8 @@ import ClientsRoute from "./ClientsRoute";
 import RequestForgotRoute from "./RequestForgotRoute";
 import ServicesProvidedRoutes from "./ServicesProvidedRoute";
 import MaintenanceRoutes from "./MaintenanceRoute";
+import ReportsRoute from "./ReportRoute";
+import AccessLevelRoutes from "./AccessLevelRoute";
 
 const routes: any[] = [
   UserRoutes,
@@ -14,6 +16,8 @@ const routes: any[] = [
   RequestForgotRoute,
   ServicesProvidedRoutes,
   MaintenanceRoutes,
+  ReportsRoute,
+  AccessLevelRoutes,
 ];
 
 export default routes;

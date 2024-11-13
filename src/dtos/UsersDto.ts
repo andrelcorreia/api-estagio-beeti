@@ -5,4 +5,5 @@ export interface Users {
   password: string;
   created_at: Date;
   active: boolean;
+  access_level_id: string | null;
 }

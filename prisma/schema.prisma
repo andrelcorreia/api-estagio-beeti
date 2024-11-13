@@ -14,6 +14,7 @@ model users {
   password          String              @db.VarChar(255)
   created_at        DateTime            @default(now()) @db.Timestamp(6)
   active            Boolean             @default(true)
+  access_level_id   String?             @db.VarChar(40)
   api_main_logs     api_main_logs[]
   maintenance       maintenance[]
   services_provided services_provided[]
