@@ -65,7 +65,7 @@ export class NodemailerProvider implements INodemailerProvider {
       text: "Lembrete de manutenção!", // plain text body
       html, // html body
     };
-    console.log({ mailOptions });
+
     transporter.sendMail(mailOptions, (error, info) => {
       if (error) {
         console.log(error);

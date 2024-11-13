@@ -12,7 +12,7 @@ export class CreateServicesProvidedUseCase {
     const servicesProvidedModel = new ServicesProvidedModel();
     const usersModel = new UsersModel();
     const clientsModel = new ClientsModel();
-    console.log({ data });
+
     const user = await usersModel.findById(data.user_id);
 
     if (!user) {

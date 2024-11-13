@@ -83,7 +83,6 @@ export class ServicesProvidedModel implements IServicesProvidedModel {
       ORDER BY sp.created_at DESC 
       LIMIT ${limit} OFFSET ${page * limit}`;
 
-    // Mapeando para a interface correta
     return rows.map((row) => ({
       id: row.id,
       description: row.description,
@@ -116,13 +115,10 @@ export class ServicesProvidedModel implements IServicesProvidedModel {
       WHERE sp.active = true 
       AND sp.id = ${id}`;
 
-    // Como esperamos apenas um resultado, use `rows[0]`
     const row = rows[0];
 
-    // Retornar null se não encontrar nenhum resultado
     if (!row) return null;
 
-    // Retornar o objeto mapeado
     return {
       id: row.id,
       description: row.description,

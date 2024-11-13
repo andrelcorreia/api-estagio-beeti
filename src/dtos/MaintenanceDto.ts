@@ -22,6 +22,9 @@ export interface MaintenanceCompleteInfo {
   client: {
     name: string;
   };
+  product: {
+    name: string;
+  };
   user: {
     name: string;
   };

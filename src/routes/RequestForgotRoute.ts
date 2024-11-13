@@ -1,5 +1,8 @@
 import env from "@config/config";
-import { requestForgotPasswordController } from "@src/controllers/forgotPassword";
+import {
+  requestForgotPasswordConfirmController,
+  requestForgotPasswordController,
+} from "@src/controllers/forgotPassword";
 
 import { FastifyInstance, FastifyPluginOptions } from "fastify";
 
@@ -13,6 +16,11 @@ class RequestForgotRoute {
     done: any
   ) => {
     fastify.post(`/`, requestForgotPasswordController.handle);
+
+    fastify.post(
+      `/confirmPassword`,
+      requestForgotPasswordConfirmController.handle
+    );
 
     done();
   };

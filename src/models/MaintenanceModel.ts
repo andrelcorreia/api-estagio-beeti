@@ -114,6 +114,7 @@ export class MaintenanceModel implements IMaintenanceModel {
       user_id: row.user_id,
       client_id: row.client_id,
       client: { name: row.client_name },
+      product: { name: row.product_name },
       user: { name: row.user_name },
     }));
   }

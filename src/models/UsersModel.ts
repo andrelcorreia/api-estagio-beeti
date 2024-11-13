@@ -107,6 +107,23 @@ export class UsersModel implements IUsersModel {
     return rows[0];
   }
 
+  async updatePassword(id: string, password: string): Promise<Users> {
+    const rows = await prisma.$queryRaw<Users[]>`
+    UPDATE users SET
+    password =  ${password}::varchar
+    WHERE id = ${id}::varchar
+    RETURNING
+    id,
+    PGP_SYM_DECRYPT(email, CAST(${env.DATABASE_KEY} AS varchar)) AS email,
+    PGP_SYM_DECRYPT(name, CAST(${env.DATABASE_KEY} AS varchar)) AS name,
+    password,
+    created_at,
+    active
+    `;
+
+    return rows[0];
+  }
+
   async count(): Promise<number> {
     return prisma.users.count();
   }
