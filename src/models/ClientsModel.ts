@@ -141,4 +141,22 @@ export class ClientsModel implements IClientsModel {
 
     return rows[0];
   }
+
+  async inactive(id: string): Promise<ClientsDto> {
+    const rows: ClientsDto[] = await prisma.$queryRaw`
+    UPDATE clients SET
+    active = false
+    WHERE id = ${id}::varchar
+    RETURNING
+    id,
+    PGP_SYM_DECRYPT(name, CAST(${env.DATABASE_KEY} AS varchar)) AS name,
+    PGP_SYM_DECRYPT(document, CAST(${env.DATABASE_KEY} AS varchar)) AS document,
+    PGP_SYM_DECRYPT(full_address, CAST(${env.DATABASE_KEY} AS varchar)) AS full_address,
+    PGP_SYM_DECRYPT(telephone, CAST(${env.DATABASE_KEY} AS varchar)) AS telephone,
+    created_at,
+    active
+    `;
+
+    return rows[0];
+  }
 }

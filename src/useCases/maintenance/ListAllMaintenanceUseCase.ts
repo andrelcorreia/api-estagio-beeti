@@ -21,31 +21,21 @@ export class ListAllMaintenanceUseCase {
       description && description !== "" ? description : undefined
     );
 
-    const user = await usersModel.findById(
-      "0de78204-cad0-4363-88f8-5993cd5d7d00"
-    );
-
-    if (!user) {
-      throw new AppError({
-        code: 1,
-        statusCode: 404,
-        result: "error",
-        message: "Usuário não encontrado",
-      });
-    }
-
-    const receiver = {
-      user_id: user.id,
-      email: user.email.toLocaleLowerCase(),
-    };
-
     list.map(async (maintenance) => {
-      if (maintenance.created_at < moment().subtract(1, "days").toDate()) {
-        await nodemailerProvider.onlySendEmail(receiver, {
+      console.log({ maintenance });
+      if (
+        maintenance.created_at < moment().subtract(1, "days").toDate() &&
+        maintenance.reminder === false
+      ) {
+        await nodemailerProvider.onlySendEmail({
+          email: "andrelgpcorreia@gmail.com",
           cli_name: maintenance.client.name,
           prod_name: maintenance.product.name,
         });
+
+        maintenanceModel.updateReminder(maintenance.id);
       }
+
       return false;
     });
 

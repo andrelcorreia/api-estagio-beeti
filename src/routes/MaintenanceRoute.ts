@@ -1,5 +1,6 @@
 import env from "@config/config";
 import {
+  closeMaintenanceController,
   createMaintenanceController,
   deleteMaintenanceController,
   listAllMaintenanceController,
@@ -51,6 +52,12 @@ class MaintenanceRoutes {
       `/inactive/:id`,
       { preValidation: [fastify.authenticate] },
       deleteMaintenanceController.handle
+    );
+
+    fastify.patch(
+      `/close/:id`,
+      { preValidation: [fastify.authenticate] },
+      closeMaintenanceController.handle
     );
 
     done();

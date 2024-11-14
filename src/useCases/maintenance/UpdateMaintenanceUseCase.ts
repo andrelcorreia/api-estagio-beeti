@@ -9,7 +9,7 @@ import { UsersModel } from "@src/models/UsersModel";
 
 export class UpdateMaintenanceUseCase {
   async execute(
-    data: Omit<Maintenance, "created_at" | "active">
+    data: Omit<Maintenance, "created_at" | "active" | "reminder">
   ): Promise<Maintenance> {
     const maintenanceModel = new MaintenanceModel();
     const productsModel = new ProductsModel();

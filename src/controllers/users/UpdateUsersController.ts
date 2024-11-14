@@ -18,6 +18,7 @@ export class UpdateUsersController {
       id,
       name: data.name,
       email: data.email,
+      access_level_id: data.access_level_id,
     });
 
     return reply.send(

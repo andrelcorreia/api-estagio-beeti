@@ -78,6 +78,24 @@ export class UsersModel implements IUsersModel {
     return rows[0];
   }
 
+  async findByEmailDiff(email: string, id: string): Promise<Users> {
+    const rows: Users[] = await prisma.$queryRaw<Users[]>`
+    SELECT 
+    id,
+    PGP_SYM_DECRYPT(email, CAST(${env.DATABASE_KEY} AS varchar)) AS email,
+    PGP_SYM_DECRYPT(name, CAST(${env.DATABASE_KEY} AS varchar)) AS name,
+    password,
+    created_at,
+    active,
+    access_level_id
+    FROM users
+    WHERE  
+    PGP_SYM_DECRYPT(email, CAST(${env.DATABASE_KEY} AS varchar)) = CAST(${email} AS varchar) AND id != ${id}::varchar
+    `;
+
+    return rows[0];
+  }
+
   async findAll(): Promise<Users[]> {
     const rows = await prisma.$queryRaw<Users[]>`
     SELECT 
@@ -119,6 +137,24 @@ export class UsersModel implements IUsersModel {
     const rows = await prisma.$queryRaw<Users[]>`
     UPDATE users SET
     password =  ${password}::varchar
+    WHERE id = ${id}::varchar
+    RETURNING
+    id,
+    PGP_SYM_DECRYPT(email, CAST(${env.DATABASE_KEY} AS varchar)) AS email,
+    PGP_SYM_DECRYPT(name, CAST(${env.DATABASE_KEY} AS varchar)) AS name,
+    password,
+    created_at,
+    active,
+    access_level_id
+    `;
+
+    return rows[0];
+  }
+
+  async inactive(id: string): Promise<Users> {
+    const rows = await prisma.$queryRaw<Users[]>`
+    UPDATE users SET
+    active = false
     WHERE id = ${id}::varchar
     RETURNING
     id,

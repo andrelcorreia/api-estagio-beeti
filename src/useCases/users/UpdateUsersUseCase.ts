@@ -28,7 +28,7 @@ export class UpdateUsersUseCase {
           result: "error",
         });
 
-      const verifyEmail = await usersModel.findByEmail(data.email);
+      const verifyEmail = await usersModel.findByEmailDiff(data.email, list.id);
 
       if (verifyEmail) {
         throw new AppError({
@@ -43,6 +43,9 @@ export class UpdateUsersUseCase {
       id: data.id ? data.id : list.id,
       email: data.email ? data.email.trim() : list.email,
       name: data.name ? data.name.trim() : list.name,
+      access_level_id: data.access_level_id
+        ? data.access_level_id
+        : list.access_level_id,
     });
 
     return update;

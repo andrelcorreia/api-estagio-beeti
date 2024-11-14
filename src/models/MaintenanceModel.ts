@@ -114,6 +114,7 @@ export class MaintenanceModel implements IMaintenanceModel {
       technical_date: row.technical_date,
       user_id: row.user_id,
       client_id: row.client_id,
+      reminder: row.reminder,
       client: { name: row.client_name },
       product: { name: row.product_name },
       user: { name: row.user_name },
@@ -121,11 +122,29 @@ export class MaintenanceModel implements IMaintenanceModel {
   }
 
   async update(
-    props: Omit<Maintenance, "created_at" | "active">
+    props: Omit<Maintenance, "created_at" | "active" | "reminder">
   ): Promise<Maintenance> {
     return prisma.maintenance.update({
       where: { id: props.id },
       data: props,
+    });
+  }
+
+  async close(id: string): Promise<void> {
+    return prisma.maintenance.update({
+      where: { id },
+      data: {
+        openned: false,
+      },
+    });
+  }
+
+  async updateReminder(id: string): Promise<Maintenance> {
+    return prisma.maintenance.update({
+      where: { id: id },
+      data: {
+        reminder: true,
+      },
     });
   }
 

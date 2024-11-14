@@ -16,7 +16,7 @@ jwt:
 nodemailer_config:
   USER_EMAIL_PROVIDER: "noreplyprojectsoficial@gmail.com"
   USER_EMAIL_PASSWORD: "zyjl kizw tira jtlz"
-  API_FORGOT_PASSWORD_URL: "https://www.youtube.com/"
+  API_FORGOT_PASSWORD_URL: "http://localhost:3000/forgotPasswordConfirm/"
 
 ######################################################################
 ## Configurações YENV ref: https://www.npmjs.com/package/yenv

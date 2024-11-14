@@ -1,3 +1,4 @@
+import { CloseMaintenanceController } from "./CloseMaintenanceController";
 import { CreateMaintenanceController } from "./CreateMaintenanceController";
 import { DeleteMaintenanceController } from "./DeleteMaintenanceController";
 import { ListAllMaintenanceController } from "./ListAllMaintenanceController";
@@ -9,6 +10,7 @@ const deleteMaintenanceController = new DeleteMaintenanceController();
 const listAllMaintenanceController = new ListAllMaintenanceController();
 const listMaintenanceByIdController = new ListMaintenanceByIdController();
 const updateMaintenanceController = new UpdateMaintenanceController();
+const closeMaintenanceController = new CloseMaintenanceController();
 
 export {
   createMaintenanceController,
@@ -16,4 +18,5 @@ export {
   listAllMaintenanceController,
   listMaintenanceByIdController,
   updateMaintenanceController,
+  closeMaintenanceController,
 };

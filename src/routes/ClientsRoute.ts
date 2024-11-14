@@ -1,6 +1,7 @@
 import env from "@config/config";
 import {
   createClientsController,
+  inactiveClientsController,
   listAllClientsController,
   listClientsByIdController,
   updateClientsController,
@@ -39,6 +40,12 @@ class ClientsRoute {
       `/:id`,
       { preValidation: [fastify.authenticate] },
       updateClientsController.handle
+    );
+
+    fastify.delete(
+      `/:id`,
+      { preValidation: [fastify.authenticate] },
+      inactiveClientsController.handle
     );
 
     done();

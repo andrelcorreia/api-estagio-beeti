@@ -61,6 +61,7 @@ model maintenance {
   client_id       String           @db.VarChar(40)
   product_id      String           @db.VarChar(40)
   occ_id          String?          @db.VarChar(40)
+  reminder        Boolean          @default(false)
   clients         clients          @relation(fields: [client_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
   type_occurrence type_occurrence? @relation(fields: [occ_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
   products        products         @relation(fields: [product_id], references: [id], onDelete: NoAction, onUpdate: NoAction)

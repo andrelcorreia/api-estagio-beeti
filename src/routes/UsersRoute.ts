@@ -1,6 +1,7 @@
 import env from "@config/config";
 import {
   createUsersController,
+  deleteUsersController,
   listAllUsersController,
   listUsersByIdController,
   updateUsersController,
@@ -43,6 +44,12 @@ class UserRoutes {
       `/:id`,
       { preValidation: [fastify.authenticate] },
       updateUsersController.handle
+    );
+
+    fastify.delete(
+      `/:id`,
+      { preValidation: [fastify.authenticate] },
+      deleteUsersController.handle
     );
 
     done();

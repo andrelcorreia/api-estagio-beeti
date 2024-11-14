@@ -41,10 +41,11 @@ export class NodemailerProvider implements INodemailerProvider {
     });
   }
 
-  async onlySendEmail(
-    receiver: ReceiverEmailOptions,
-    props: { cli_name: string; prod_name: string }
-  ): Promise<void> {
+  async onlySendEmail(props: {
+    cli_name: string;
+    prod_name: string;
+    email: string;
+  }): Promise<void> {
     const transporter = nodemailer.createTransport({
       host: "smtp.gmail.com",
       port: 465,
@@ -60,7 +61,7 @@ export class NodemailerProvider implements INodemailerProvider {
     // send mail with defined transport object
     const mailOptions = {
       from: env.USER_EMAIL_PROVIDER, // sender address
-      to: receiver.email, // list of receivers
+      to: props.email, // list of receivers
       subject: "Lembrete de manutenção", // Subject line
       text: "Lembrete de manutenção!", // plain text body
       html, // html body

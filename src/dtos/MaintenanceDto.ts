@@ -9,6 +9,7 @@ export interface Maintenance {
   client_id: string;
   product_id: string;
   occ_id: string | null;
+  reminder: boolean;
 }
 export interface MaintenanceCompleteInfo {
   id: string;
@@ -19,6 +20,7 @@ export interface MaintenanceCompleteInfo {
   technical_date: boolean;
   user_id: string;
   client_id: string;
+  reminder: boolean;
   client: {
     name: string;
   };

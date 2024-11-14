@@ -44,8 +44,22 @@ export class RequestForgotPasswordConfirmUseCase {
         result: "error",
       });
     }
+    console.log({ password });
+    if (
+      !password.match(
+        /(?=^.{8,}$)((?=.*\d)(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/
+      )
+    ) {
+      throw new AppError({
+        statusCode: 404,
+        message: "Essa senha é fraca!",
+        result: "error",
+      });
+    }
 
-    await usersModel.updatePassword(user?.id, password);
+    const passwordHash = await request.bcryptHash(password.trim());
+
+    await usersModel.updatePassword(user?.id, passwordHash);
 
     return true;
   }
