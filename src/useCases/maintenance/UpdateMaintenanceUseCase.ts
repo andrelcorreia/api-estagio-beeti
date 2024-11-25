@@ -51,15 +51,15 @@ export class UpdateMaintenanceUseCase {
         });
       }
     }
-
+    console.log({ technical_date: data.technical_date });
     const create = await maintenanceModel.update({
       id: data.id,
       description: data.description.trim(),
       estimated_date: data.estimated_date,
-      technical_date: data.technical_date,
-      user_id: data.user_id.trim(),
-      client_id: data.client_id.trim(),
-      product_id: data.product_id.trim(),
+      technical_date: data.technical_date === undefined ? false : true,
+      user_id: data.user_id,
+      client_id: data.client_id,
+      product_id: data.product_id,
       occ_id: null,
     });
 

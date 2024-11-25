@@ -44,7 +44,7 @@ class ServicesProvidedRoutes {
       updateServicesProvidedController.handle
     );
 
-    fastify.put(
+    fastify.delete(
       `/inactive/:id`,
       { preValidation: [fastify.authenticate] },
       deleteServicesProvidedController.handle

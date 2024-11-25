@@ -153,4 +153,10 @@ export class ServicesProvidedModel implements IServicesProvidedModel {
       },
     });
   }
+
+  async delete(id: string): Promise<ServicesProvided> {
+    return prisma.services_provided.delete({
+      where: { id },
+    });
+  }
 }

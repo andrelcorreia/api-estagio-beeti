@@ -22,13 +22,16 @@ export class RequestForgotPasswordConfirmUseCase {
     request: FastifyRequest;
   }): Promise<Boolean> {
     const usersModel = new UsersModel();
+    console.log({ token });
 
-    const { sub } = token
+    const { iss } = token
       ? (verify(token, env.JWT_SECRET) as PayLoad)
       : ((await request.jwtVerify()) as PayLoad);
 
-    const user = await usersModel.findById(sub);
+    console.log({ iss });
 
+    const user = await usersModel.findById(iss);
+    console.log({ user });
     if (password !== confirm_password) {
       throw new AppError({
         statusCode: 400,

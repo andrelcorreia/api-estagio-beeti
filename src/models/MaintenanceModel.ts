@@ -130,14 +130,14 @@ export class MaintenanceModel implements IMaintenanceModel {
     });
   }
 
-  async close(id: string): Promise<void> {
-    return prisma.maintenance.update({
-      where: { id },
-      data: {
-        openned: false,
-      },
-    });
-  }
+  // async close(id: string): Promise<void> {
+  //   return prisma.maintenance.update({
+  //     where: { id },
+  //     data: {
+  //       openned: false,
+  //     },
+  //   });
+  // }
 
   async updateReminder(id: string): Promise<Maintenance> {
     return prisma.maintenance.update({
@@ -154,6 +154,13 @@ export class MaintenanceModel implements IMaintenanceModel {
       data: {
         active: false,
       },
+    });
+  }
+
+  async delete(id: string): Promise<Maintenance> {
+    console.log("delete", { id });
+    return prisma.maintenance.delete({
+      where: { id },
     });
   }
 }

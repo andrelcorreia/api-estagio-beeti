@@ -48,7 +48,7 @@ class MaintenanceRoutes {
       updateMaintenanceController.handle
     );
 
-    fastify.put(
+    fastify.delete(
       `/inactive/:id`,
       { preValidation: [fastify.authenticate] },
       deleteMaintenanceController.handle

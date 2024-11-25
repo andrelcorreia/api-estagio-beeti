@@ -41,8 +41,8 @@ export class UpdateServicesProvidedUseCase {
       description: data.description.trim(),
       estimated_date: data.estimated_date,
       technical_date: data.technical_date,
-      user_id: data.user_id.trim(),
-      client_id: data.client_id.trim(),
+      user_id: data.user_id,
+      client_id: data.client_id,
     });
 
     return create;

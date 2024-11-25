@@ -5,9 +5,9 @@ import { MaintenanceModel } from "@src/models/MaintenanceModel";
 export class DeleteMaintenanceUseCase {
   async execute(id: string): Promise<Maintenance> {
     const maintenanceModel = new MaintenanceModel();
-
+    console.log({ id });
     const list = await maintenanceModel.findById(id);
-
+    console.log({ list });
     if (!list) {
       throw new AppError({
         statusCode: 404,
@@ -16,7 +16,9 @@ export class DeleteMaintenanceUseCase {
       });
     }
 
-    await maintenanceModel.inactive(id);
+    const t = await maintenanceModel.delete(id);
+
+    console.log({ t });
 
     return list;
   }

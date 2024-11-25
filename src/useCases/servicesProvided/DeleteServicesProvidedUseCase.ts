@@ -16,7 +16,7 @@ export class DeleteServicesProvidedUseCase {
       });
     }
 
-    await servicesProvidedModel.inactive(id);
+    const r = await servicesProvidedModel.delete(id);
 
     return list;
   }
