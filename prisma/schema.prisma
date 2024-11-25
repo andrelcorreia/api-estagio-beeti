@@ -21,8 +21,9 @@ model users {
 }
 
 model access_level {
-  id          String @id @db.VarChar(40)
-  description String @db.VarChar(255)
+  id               String             @id @db.VarChar(40)
+  description      String             @db.VarChar(255)
+  user_permissions user_permissions[]
 }
 
 model api_main_logs {
@@ -62,6 +63,7 @@ model maintenance {
   product_id      String           @db.VarChar(40)
   occ_id          String?          @db.VarChar(40)
   reminder        Boolean          @default(false)
+  openned         Boolean?         @default(false)
   clients         clients          @relation(fields: [client_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
   type_occurrence type_occurrence? @relation(fields: [occ_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
   products        products         @relation(fields: [product_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
@@ -94,4 +96,18 @@ model type_occurrence {
   id          String        @id @db.VarChar(40)
   description String        @db.VarChar(255)
   maintenance maintenance[]
+}
+
+model permissions {
+  id               String             @id @db.VarChar(40)
+  description      String             @db.VarChar(255)
+  user_permissions user_permissions[]
+}
+
+model user_permissions {
+  id              String       @id @db.VarChar(40)
+  permissions_id  String       @db.VarChar
+  access_level_id String       @db.VarChar
+  access_level    access_level @relation(fields: [access_level_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  permissions     permissions  @relation(fields: [permissions_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }

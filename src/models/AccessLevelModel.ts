@@ -28,6 +28,10 @@ export class AccessLevelModel implements IAccessLevelModel {
     });
   }
 
+  async count(): Promise<number> {
+    return prisma.access_level.count();
+  }
+
   async update(
     props: Omit<AccessLevelDto, "created_at">
   ): Promise<AccessLevelDto> {

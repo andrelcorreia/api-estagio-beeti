@@ -1,14 +1,20 @@
 import { AccessLevelDto } from "@src/dtos/AccessLevelDto";
+import { AppError } from "@src/helper/errosHandler";
 import { AccessLevelModel } from "@src/models/AccessLevelModel";
 
-export class ListAllAccessLevelUseCase {
-  async execute(page: number, limit: number): Promise<AccessLevelDto[]> {
+export class ListAccessLevelByIdUseCase {
+  async execute(id: string): Promise<AccessLevelDto> {
     const accessLevelModel = new AccessLevelModel();
 
-    const list = await accessLevelModel.findMany(
-      page ? Number(page) : 0,
-      limit ? Number(limit) : 100
-    );
+    const list = await accessLevelModel.findById(id);
+
+    if (!list) {
+      throw new AppError({
+        statusCode: 404,
+        message: "Nível de acesso não encontrado!",
+        result: "error",
+      });
+    }
 
     return list;
   }
