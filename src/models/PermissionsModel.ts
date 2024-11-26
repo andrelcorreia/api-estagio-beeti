@@ -5,7 +5,7 @@ export interface IPermissionsModel {
   create(props: UserPermissionsDto): Promise<UserPermissionsDto>;
   findById(id: string): Promise<PermissionsDto | null>;
   findMany(page: number, limit: number): Promise<PermissionsDto[]>;
-  delete(id: string): Promise<UserPermissionsDto>;
+  delete(id: string): Promise<{ count: number }>;
 }
 
 export class PermissionsModel implements IPermissionsModel {
@@ -25,7 +25,7 @@ export class PermissionsModel implements IPermissionsModel {
     return prisma.permissions.findMany({
       where: {
         user_permissions: {
-          every: {
+          some: {
             access_level_id: id,
           },
         },
@@ -56,7 +56,9 @@ export class PermissionsModel implements IPermissionsModel {
     return prisma.permissions.count();
   }
 
-  async delete(id: string): Promise<UserPermissionsDto> {
-    return prisma.user_permissions.delete({ where: { id } });
+  async delete(id: string): Promise<{ count: number }> {
+    return prisma.user_permissions.deleteMany({
+      where: { access_level_id: id },
+    });
   }
 }

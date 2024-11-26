@@ -4,6 +4,7 @@ import {
   listAllAccessLevelController,
   listPermissionsAvailableController,
   listPermissionsByAccessLevelIdController,
+  updateAccessPermissionsController,
 } from "@src/controllers/accessLevel";
 
 import { FastifyInstance, FastifyPluginOptions } from "fastify";
@@ -39,6 +40,14 @@ class AccessLevelRoutes {
         preValidation: [fastify.authenticate],
       },
       listPermissionsByAccessLevelIdController.handle
+    );
+
+    fastify.put(
+      `/updatePermissions/:access_level_id`,
+      {
+        preValidation: [fastify.authenticate],
+      },
+      updateAccessPermissionsController.handle
     );
 
     fastify.get(

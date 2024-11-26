@@ -8,3 +8,8 @@ export interface UserPermissionsDto {
   permissions_id: string;
   access_level_id: string;
 }
+
+export interface UpdatePermissions {
+  access_level_id: string;
+  id: string[];
+}

@@ -1,5 +1,7 @@
 import { Users } from "@src/dtos/UsersDto";
 import { AppError } from "@src/helper/errosHandler";
+import { AccessLevelModel } from "@src/models/AccessLevelModel";
+import { PermissionsModel } from "@src/models/PermissionsModel";
 import { UsersModel } from "@src/models/UsersModel";
 import { FastifyReply, FastifyRequest } from "fastify";
 import { env } from "process";
@@ -12,6 +14,8 @@ export class CreateSessionsAppUseCase {
     request: FastifyRequest
   ): Promise<{ token: string } & { user: Omit<Users, "password"> }> {
     const usersModel = new UsersModel();
+    const accessLevelModel = new AccessLevelModel();
+    const permissionsModel = new PermissionsModel();
 
     const findEmail = await usersModel.findByEmail(email);
 
@@ -46,6 +50,10 @@ export class CreateSessionsAppUseCase {
       expiresIn: env.JWT_EXPIRED_IN,
     });
 
+    const permission = await permissionsModel.findByAccessLevel(
+      findEmail.access_level_id!
+    );
+
     const returnTokenInfo = {
       token,
       user: {
@@ -55,6 +63,9 @@ export class CreateSessionsAppUseCase {
         created_at: findEmail.created_at,
         active: findEmail.active,
         access_level_id: findEmail.access_level_id,
+        permissions: permission.length
+          ? permission.map((p) => p.description)
+          : null,
       },
     };
 
