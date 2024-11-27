@@ -40,9 +40,11 @@ export class MaintenanceModel implements IMaintenanceModel {
         main.user_id, 
         main.client_id, 
         PGP_SYM_DECRYPT(clients.name::bytea, CAST(${env.DATABASE_KEY} AS varchar)) AS client_name, 
-        PGP_SYM_DECRYPT(users.name::bytea, CAST(${env.DATABASE_KEY} AS varchar)) AS user_name 
+        PGP_SYM_DECRYPT(users.name::bytea, CAST(${env.DATABASE_KEY} AS varchar)) AS user_name,
+        products.name AS product_name 
       FROM maintenance main 
-      INNER JOIN clients ON main.client_id = clients.id 
+      INNER JOIN clients ON main.client_id = clients.id
+      INNER JOIN products ON main.product_id = products.id 
       INNER JOIN users ON main.user_id = users.id 
       WHERE main.active = true 
       AND main.id = ${id}::varchar
@@ -59,6 +61,7 @@ export class MaintenanceModel implements IMaintenanceModel {
       user_id: rows[0].user_id,
       client_id: rows[0].client_id,
       client: { name: rows[0].client_name },
+      product: { name: rows[0].product_name },
       user: { name: rows[0].user_name },
     };
   }
