@@ -6,6 +6,7 @@ import {
   listServicesProvidedByIdController,
   updateServicesProvidedController,
 } from "@src/controllers/servicesProvided";
+import { mainLog } from "@src/plugins/mainLog";
 
 import { FastifyInstance, FastifyPluginOptions } from "fastify";
 
@@ -49,6 +50,8 @@ class ServicesProvidedRoutes {
       { preValidation: [fastify.authenticate] },
       deleteServicesProvidedController.handle
     );
+
+    mainLog(fastify, done);
 
     done();
   };

@@ -1,6 +1,7 @@
 import env from "@config/config";
 import {
   createProductsController,
+  deleteProductController,
   findAllProductsController,
   findProductsByIdController,
   updateProductsController,
@@ -40,6 +41,12 @@ class ProductsRoute {
       `/:id`,
       { preValidation: [fastify.authenticate] },
       updateProductsController.handle
+    );
+
+    fastify.delete(
+      `/:id`,
+      { preValidation: [fastify.authenticate] },
+      deleteProductController.handle
     );
 
     mainLog(fastify, done);

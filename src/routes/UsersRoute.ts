@@ -52,6 +52,8 @@ class UserRoutes {
       deleteUsersController.handle
     );
 
+    mainLog(fastify, done);
+
     done();
   };
 }

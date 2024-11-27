@@ -7,6 +7,7 @@ import {
   listMaintenanceByIdController,
   updateMaintenanceController,
 } from "@src/controllers/maintenance";
+import { mainLog } from "@src/plugins/mainLog";
 
 import { FastifyInstance, FastifyPluginOptions } from "fastify";
 
@@ -59,6 +60,8 @@ class MaintenanceRoutes {
       { preValidation: [fastify.authenticate] },
       closeMaintenanceController.handle
     );
+
+    mainLog(fastify, done);
 
     done();
   };

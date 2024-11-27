@@ -55,7 +55,7 @@ export class UsersModel implements IUsersModel {
     active,
     access_level_id
     FROM users
-    WHERE id = ${id}::varchar`;
+    WHERE id = ${id}::varchar AND active = TRUE`;
 
     return rows[0];
   }
@@ -72,7 +72,7 @@ export class UsersModel implements IUsersModel {
     access_level_id
     FROM users
     WHERE  
-    PGP_SYM_DECRYPT(email, CAST(${env.DATABASE_KEY} AS varchar)) = CAST(${email} AS varchar)
+    PGP_SYM_DECRYPT(email, CAST(${env.DATABASE_KEY} AS varchar)) = CAST(${email} AS varchar) AND active = TRUE
     `;
 
     return rows[0];
@@ -107,6 +107,7 @@ export class UsersModel implements IUsersModel {
     active,
     access_level_id
     FROM users
+    WHERE active = TRUE
     `;
 
     return rows;

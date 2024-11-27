@@ -37,4 +37,8 @@ export class ProductsModel implements IProductsModel {
   async update(props: Omit<ProductsDto, "created_at">): Promise<ProductsDto> {
     return prisma.products.update({ where: { id: props.id }, data: props });
   }
+
+  async delete(id: string): Promise<ProductsDto> {
+    return prisma.products.delete({ where: { id } });
+  }
 }
